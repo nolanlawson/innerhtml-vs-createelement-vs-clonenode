@@ -16,10 +16,13 @@ var testFn = window[testFnName];
 
 var container = document.getElementById('container');
 var a = now();
+performance.mark('start-' + testFnName);
 for (var i = 0; i < 1000; i++) {
   container.appendChild(testFn());
 }
 var b = now();
+performance.mark('end-' + testFnName);
+performance.measure('total-' + testFnName, 'start-' + testFnName, 'end-' + testFnName);
 if (parent && parent !== window) {
   parent.postMessage(b - a, '*');
 } else {
